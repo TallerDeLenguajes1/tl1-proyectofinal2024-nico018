@@ -1,0 +1,17 @@
+C:\Users\usuario\Desktop\tl1-proyectofinal2024-nico018\bin\Debug\net8.0\tl1-proyectofinal2024-nico018.exe
+C:\Users\usuario\Desktop\tl1-proyectofinal2024-nico018\bin\Debug\net8.0\tl1-proyectofinal2024-nico018.deps.json
+C:\Users\usuario\Desktop\tl1-proyectofinal2024-nico018\bin\Debug\net8.0\tl1-proyectofinal2024-nico018.runtimeconfig.json
+C:\Users\usuario\Desktop\tl1-proyectofinal2024-nico018\bin\Debug\net8.0\tl1-proyectofinal2024-nico018.dll
+C:\Users\usuario\Desktop\tl1-proyectofinal2024-nico018\bin\Debug\net8.0\tl1-proyectofinal2024-nico018.pdb
+C:\Users\usuario\Desktop\tl1-proyectofinal2024-nico018\obj\Debug\net8.0\tl1-proyectofinal2024-nico018.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\usuario\Desktop\tl1-proyectofinal2024-nico018\obj\Debug\net8.0\tl1-proyectofinal2024-nico018.AssemblyInfoInputs.cache
+C:\Users\usuario\Desktop\tl1-proyectofinal2024-nico018\obj\Debug\net8.0\tl1-proyectofinal2024-nico018.AssemblyInfo.cs
+C:\Users\usuario\Desktop\tl1-proyectofinal2024-nico018\obj\Debug\net8.0\tl1-proyectofinal2024-nico018.csproj.CoreCompileInputs.cache
+C:\Users\usuario\Desktop\tl1-proyectofinal2024-nico018\obj\Debug\net8.0\tl1-proyectofinal2024-nico018.dll
+C:\Users\usuario\Desktop\tl1-proyectofinal2024-nico018\obj\Debug\net8.0\refint\tl1-proyectofinal2024-nico018.dll
+C:\Users\usuario\Desktop\tl1-proyectofinal2024-nico018\obj\Debug\net8.0\tl1-proyectofinal2024-nico018.pdb
+C:\Users\usuario\Desktop\tl1-proyectofinal2024-nico018\obj\Debug\net8.0\tl1-proyectofinal2024-nico018.genruntimeconfig.cache
+C:\Users\usuario\Desktop\tl1-proyectofinal2024-nico018\obj\Debug\net8.0\ref\tl1-proyectofinal2024-nico018.dll
+C:\Users\usuario\Desktop\tl1-proyectofinal2024-nico018\bin\Debug\net8.0\Newtonsoft.Json.dll
+C:\Users\usuario\Desktop\tl1-proyectofinal2024-nico018\obj\Debug\net8.0\tl1-proyectofinal2024-nico018.csproj.AssemblyReference.cache
+C:\Users\usuario\Desktop\tl1-proyectofinal2024-nico018\obj\Debug\net8.0\tl1-proy.85A4BD12.Up2Date

@@ -1,0 +1,97 @@
+using System;
+
+class Program
+{
+    static void Main()
+    {
+        // Solicitar nombre de usuario
+        Console.Write("ingrese su nombre de usuario: ");
+        string nombreUsuario = Console.ReadLine();
+
+        // Mostrar menú de personajes
+        Console.WriteLine("Elije un personaje:");
+        Console.WriteLine("1. Harry Potter");
+        Console.WriteLine("2. Hermione Granger");
+        Console.WriteLine("3. Ron Weasley");
+        Console.WriteLine("4. Severus Snape");
+
+        // Leer la elección del usuario
+        int eleccion = Convert.ToInt32(Console.ReadLine());
+        string personajeElegido = "";
+        string[] personajes = { "Harry Potter", "Hermione Granger", "Ron Weasley", "Severus Snape" };
+
+        // Asignar el personaje elegido según la opción seleccionada
+        if (eleccion >= 1 && eleccion <= 4)
+        {
+            personajeElegido = personajes[eleccion - 1];
+        }
+        else
+        {
+            Console.WriteLine("Opción no válida");
+            return;
+        }
+
+        // Crear una instancia de HabilidadesDePersonajes
+        HabilidadesDePersonajes habilidadesDePersonajes = new HabilidadesDePersonajes();
+        
+        // Obtener y mostrar las habilidades del personaje elegido
+        Personaje personaje = habilidadesDePersonajes.CrearPersonaje(personajeElegido);
+        Console.WriteLine("\nHas elegido a: " + personaje.Nombre);
+        MostrarHabilidades(personaje);
+
+        // Mostrar las habilidades de los personajes no elegidos
+        Console.WriteLine("\nHabilidades de los personajes no elegidos:");
+        for (int i = 0; i < personajes.Length; i++)
+        {
+            if (i != eleccion - 1)
+            {
+                Personaje personajeNoElegido = habilidadesDePersonajes.CrearPersonaje(personajes[i]);
+                MostrarHabilidades(personajeNoElegido);
+            }
+        }
+    }
+
+    static void MostrarHabilidades(Personaje personaje)
+    {
+        Console.WriteLine("\nPersonaje: " + personaje.Nombre);
+        Console.WriteLine("Varita: " + personaje.Varita);
+        Console.WriteLine("Magia: " + personaje.Magia);
+        Console.WriteLine("Nivel: " + personaje.Nivel);
+        Console.WriteLine("Efectividad: " + personaje.Efectividad);
+        Console.WriteLine("Hechizo de defensa: " + personaje.HechizoDefensa);
+        Console.WriteLine("Reflejos: " + personaje.Reflejos);
+        Console.WriteLine("Salud: " + personaje.Salud);
+    }
+}
+
+public class HabilidadesDePersonajes
+{
+    private Random random = new Random();
+
+    public Personaje CrearPersonaje(string nombre)
+    {
+        return new Personaje
+        {
+            Nombre = nombre,
+            Varita = random.Next(1, 11),
+            Magia = random.Next(50, 101),
+            Nivel = random.Next(1, 101),
+            Efectividad = random.Next(1, 101),
+            HechizoDefensa = random.Next(50, 101),
+            Reflejos = random.Next(20, 51),
+            Salud = 100.0f
+        };
+    }
+}
+
+public class Personaje
+{
+    public string Nombre { get; set; }
+    public int Varita { get; set; }
+    public int Magia { get; set; }
+    public int Nivel { get; set; }
+    public int Efectividad { get; set; }
+    public int HechizoDefensa { get; set; }
+    public int Reflejos { get; set; }
+    public float Salud { get; set; }
+}
