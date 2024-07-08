@@ -1,15 +1,18 @@
 using System;
+using System.Net.Http;
+using System.Threading.Tasks;
+using Newtonsoft.Json.Linq;
 
 class Program
 {
-    static void Main()
+    static async Task Main(string[] args)
     {
         // Solicitar nombre de usuario
-        Console.Write("ingrese su nombre de usuario: ");
+        Console.Write("Por favor, ingrese su nombre de usuario: ");
         string nombreUsuario = Console.ReadLine();
 
         // Mostrar menú de personajes
-        Console.WriteLine("Elije un personaje:");
+        Console.WriteLine("Elija un personaje:");
         Console.WriteLine("1. Harry Potter");
         Console.WriteLine("2. Hermione Granger");
         Console.WriteLine("3. Ron Weasley");
@@ -33,7 +36,7 @@ class Program
 
         // Crear una instancia de HabilidadesDePersonajes
         HabilidadesDePersonajes habilidadesDePersonajes = new HabilidadesDePersonajes();
-        
+
         // Obtener y mostrar las habilidades del personaje elegido
         Personaje personaje = habilidadesDePersonajes.CrearPersonaje(personajeElegido);
         Console.WriteLine("\nHas elegido a: " + personaje.Nombre);
@@ -49,6 +52,9 @@ class Program
                 MostrarHabilidades(personajeNoElegido);
             }
         }
+
+        // Obtener y mostrar los datos adicionales del personaje elegido desde la API
+        await MostrarDatosAdicionales(personajeElegido);
     }
 
     static void MostrarHabilidades(Personaje personaje)
@@ -61,6 +67,31 @@ class Program
         Console.WriteLine("Hechizo de defensa: " + personaje.HechizoDefensa);
         Console.WriteLine("Reflejos: " + personaje.Reflejos);
         Console.WriteLine("Salud: " + personaje.Salud);
+    }
+
+    static async Task MostrarDatosAdicionales(string nombre)
+    {
+        using (HttpClient client = new HttpClient())
+        {
+            string url = "https://hp-api.onrender.com/api/characters";
+            string json = await client.GetStringAsync(url);
+            JArray personajes = JArray.Parse(json);
+
+            var personaje = personajes.FirstOrDefault(p => (string)p["name"] == nombre);
+            if (personaje != null)
+            {
+                Console.WriteLine("\nDatos adicionales del personaje elegido:");
+                Console.WriteLine("Nombre: " + personaje["name"]);
+                Console.WriteLine("Casa: " + personaje["house"]);
+                Console.WriteLine("Fecha de nacimiento: " + personaje["dateOfBirth"]);
+                Console.WriteLine("Ascendencia: " + personaje["ancestry"]);
+                Console.WriteLine("Patronus: " + personaje["patronus"]);
+            }
+            else
+            {
+                Console.WriteLine("No se encontraron datos adicionales para el personaje seleccionado.");
+            }
+        }
     }
 }
 
