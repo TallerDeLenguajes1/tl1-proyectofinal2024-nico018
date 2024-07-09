@@ -1,6 +1,9 @@
 using System;
+using System.Collections.Generic;
+using System.IO;
 using System.Net.Http;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
 class Program
@@ -21,12 +24,12 @@ class Program
         // Leer la elección del usuario
         int eleccion = Convert.ToInt32(Console.ReadLine());
         string personajeElegido = "";
-        string[] personajes = { "Harry Potter", "Hermione Granger", "Ron Weasley", "Severus Snape" };
+        string[] personajesNombres = { "Harry Potter", "Hermione Granger", "Ron Weasley", "Severus Snape" };
 
         // Asignar el personaje elegido según la opción seleccionada
         if (eleccion >= 1 && eleccion <= 4)
         {
-            personajeElegido = personajes[eleccion - 1];
+            personajeElegido = personajesNombres[eleccion - 1];
         }
         else
         {
@@ -36,25 +39,48 @@ class Program
 
         // Crear una instancia de HabilidadesDePersonajes
         HabilidadesDePersonajes habilidadesDePersonajes = new HabilidadesDePersonajes();
+        List<Personaje> personajes = new List<Personaje>();
 
-        // Obtener y mostrar las habilidades del personaje elegido
-        Personaje personaje = habilidadesDePersonajes.CrearPersonaje(personajeElegido);
-        Console.WriteLine("\nHas elegido a: " + personaje.Nombre);
-        MostrarHabilidades(personaje);
+        // Crear y mostrar las habilidades de los personajes
+        foreach (string nombre in personajesNombres)
+        {
+            Personaje personaje = habilidadesDePersonajes.CrearPersonaje(nombre);
+            personajes.Add(personaje);
+
+            if (nombre == personajeElegido)
+            {
+                Console.WriteLine("\nHas elegido a: " + personaje.Nombre);
+                MostrarHabilidades(personaje);
+            }
+        }
 
         // Mostrar las habilidades de los personajes no elegidos
         Console.WriteLine("\nHabilidades de los personajes no elegidos:");
-        for (int i = 0; i < personajes.Length; i++)
+        foreach (Personaje personaje in personajes)
         {
-            if (i != eleccion - 1)
+            if (personaje.Nombre != personajeElegido)
             {
-                Personaje personajeNoElegido = habilidadesDePersonajes.CrearPersonaje(personajes[i]);
-                MostrarHabilidades(personajeNoElegido);
+                MostrarHabilidades(personaje);
             }
         }
 
         // Obtener y mostrar los datos adicionales del personaje elegido desde la API
         await MostrarDatosAdicionales(personajeElegido);
+
+        // Guardar personajes en un archivo JSON
+        string nombreArchivo = "personajes.json";
+        PersonajesJson.GuardarPersonajes(personajes, nombreArchivo);
+
+        // Leer personajes del archivo JSON
+        if (PersonajesJson.Existe(nombreArchivo))
+        {
+            List<Personaje> personajesLeidos = PersonajesJson.LeerPersonajes(nombreArchivo);
+            Console.WriteLine("\nPersonajes leídos desde el archivo JSON:");
+            foreach (Personaje personaje in personajesLeidos)
+            {
+                MostrarHabilidades(personaje);
+            }
+        }
     }
 
     static void MostrarHabilidades(Personaje personaje)
@@ -125,4 +151,24 @@ public class Personaje
     public int HechizoDefensa { get; set; }
     public int Reflejos { get; set; }
     public float Salud { get; set; }
+}
+
+public static class PersonajesJson
+{
+    public static void GuardarPersonajes(List<Personaje> personajes, string nombreArchivo)
+    {
+        string json = JsonConvert.SerializeObject(personajes, Formatting.Indented);
+        File.WriteAllText(nombreArchivo, json);
+    }
+
+    public static List<Personaje> LeerPersonajes(string nombreArchivo)
+    {
+        string json = File.ReadAllText(nombreArchivo);
+        return JsonConvert.DeserializeObject<List<Personaje>>(json);
+    }
+
+    public static bool Existe(string nombreArchivo)
+    {
+        return File.Exists(nombreArchivo) && new FileInfo(nombreArchivo).Length > 0;
+    }
 }
