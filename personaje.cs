@@ -12,3 +12,4 @@ namespace HarryPotterApp
         public float Salud { get; set; }
     }
 }
+
