@@ -30,7 +30,7 @@ namespace HarryPotterApp
 
             while (p1.Salud > 0 && p2.Salud > 0)
             {
-                await Task.Delay(500); // Agregar una pausa para simular el tiempo entre turnos
+                await Task.Delay(500); // Pausa para simular el tiempo entre turnos
 
                 // Turno de ataque de p1
                 float danioP1 = CalcularDanio(p1, p2, constanteAjuste);
@@ -42,7 +42,7 @@ namespace HarryPotterApp
                     return $"{p1.Nombre} gana el combate!";
                 }
 
-                await Task.Delay(500); // Agregar una pausa para simular el tiempo entre turnos
+                await Task.Delay(500); // Pausa para simular el tiempo entre turnos
 
                 // Turno de ataque de p2
                 float danioP2 = CalcularDanio(p2, p1, constanteAjuste);
@@ -61,21 +61,18 @@ namespace HarryPotterApp
         private float CalcularDanio(Personaje atacante, Personaje defensor, float constanteAjuste)
         {
             float ataque = atacante.Magia * atacante.Varita * atacante.Nivel;
-            float efectividad = random.Next(1, 101) / 100.0f; // Convertir a porcentaje
+            float efectividad = random.Next(1, 101) / 100.0f; // Efectividad entre 0.01 y 1
             float defensa = defensor.HechizoDefensa * defensor.Reflejos;
 
-            // Ajuste de ataque y defensa con un factor aleatorio
-            ataque *= (float)(random.NextDouble() * 0.4 + 0.8); // Ajuste aleatorio entre 0.8 y 1.2
-            defensa *= (float)(random.NextDouble() * 0.4 + 0.8); // Ajuste aleatorio entre 0.8 y 1.2
-
             float danioProvocado = ((ataque * efectividad) - defensa) / constanteAjuste;
-            return Math.Max(danioProvocado, 0); // No puede ser negativo
+            return Math.Max(danioProvocado, 1); // Daño mínimo de 1 para evitar ataques de valor cero
         }
 
         private void MejorarHabilidades(Personaje ganador)
         {
             ganador.Salud += 10;
             ganador.HechizoDefensa += 5;
+            ganador.Reflejos += 5;
         }
     }
 }

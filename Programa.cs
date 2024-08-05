@@ -29,8 +29,8 @@ namespace HarryPotterApp
             }
 
             // Guardar personajes en un archivo JSON
-            string nombreArchivo = "personajes.json";
-            PersonajesJson.GuardarPersonajes(personajes, nombreArchivo);
+            string nombreArchivoPersonajes = "personajes.json";
+            PersonajesJson.GuardarPersonajes(personajes, nombreArchivoPersonajes);
 
             // Elegir el primer personaje
             Console.WriteLine("Elija un personaje:");
@@ -64,9 +64,25 @@ namespace HarryPotterApp
             }
 
             // Declarar el ganador final
-            Console.WriteLine("\n¡El ganador final y merecedor del Calis de Fuego es:");
+            Console.WriteLine("\n¡El ganador final y merecedor del Trono de Hierro es:");
             MostrarHabilidades(personaje1);
             Console.WriteLine($"{personaje1.Nombre}, ¡felicitaciones!");
+
+            // Guardar el ganador en el historial
+            string nombreArchivoHistorial = "historial_ganadores.json";
+            string informacion = $"{nombreUsuario} eligió a {personaje1.Nombre} y ganó la competencia.";
+            HistorialJson.GuardarGanador(personaje1, informacion, nombreArchivoHistorial);
+
+            // Leer y mostrar el historial de ganadores
+            if (HistorialJson.Existe(nombreArchivoHistorial))
+            {
+                List<HistorialEntry> ganadores = HistorialJson.LeerGanadores(nombreArchivoHistorial);
+                Console.WriteLine("\nHistorial de Ganadores:");
+                foreach (var entry in ganadores)
+                {
+                    Console.WriteLine($"{entry.Fecha}: {entry.Nombre} - {entry.Informacion}");
+                }
+            }
         }
 
         static void MostrarHabilidades(Personaje personaje)
