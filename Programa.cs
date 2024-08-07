@@ -64,19 +64,19 @@ namespace HarryPotterApp
             }
 
             // Declarar el ganador final
-            Console.WriteLine("\n¡El ganador final y merecedor del Trono de Hierro es:");
+            Console.WriteLine("\n¡El ganador final y merecedor del Calix de Fuego es:");
             MostrarHabilidades(personaje1);
             Console.WriteLine($"{personaje1.Nombre}, ¡felicitaciones!");
 
             // Guardar el ganador en el historial
             string nombreArchivoHistorial = "historial_ganadores.json";
             string informacion = $"{nombreUsuario} eligió a {personaje1.Nombre} y ganó la competencia.";
-            HistorialJson.GuardarGanador(personaje1, informacion, nombreArchivoHistorial);
+            RegistroJson.GuardarGanador(personaje1, informacion, nombreArchivoHistorial);
 
             // Leer y mostrar el historial de ganadores
-            if (HistorialJson.Existe(nombreArchivoHistorial))
+            if (RegistroJson.Existe(nombreArchivoHistorial))
             {
-                List<HistorialEntry> ganadores = HistorialJson.LeerGanadores(nombreArchivoHistorial);
+                List<Registro> ganadores = RegistroJson.LeerGanadores(nombreArchivoHistorial);
                 Console.WriteLine("\nHistorial de Ganadores:");
                 foreach (var entry in ganadores)
                 {

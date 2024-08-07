@@ -5,43 +5,43 @@ using Newtonsoft.Json;
 
 namespace HarryPotterApp
 {
-    public static class HistorialJson
+    public static class RegistroJson
     {
         // Método para guardar el personaje ganador y la información relevante
         public static void GuardarGanador(Personaje ganador, string informacion, string nombreArchivo)
         {
-            List<HistorialEntry> historial;
+            List<Registro> historial;
             if (File.Exists(nombreArchivo))
             {
                 historial = LeerGanadores(nombreArchivo);
             }
             else
             {
-                historial = new List<HistorialEntry>();
+                historial = new List<Registro>();
             }
 
-            HistorialEntry entry = new HistorialEntry
+            Registro registro = new Registro
             {
                 Nombre = ganador.Nombre,
                 Informacion = informacion,
                 Fecha = DateTime.Now
             };
 
-            historial.Add(entry);
+            historial.Add(registro);
             string json = JsonConvert.SerializeObject(historial, Formatting.Indented);
             File.WriteAllText(nombreArchivo, json);
         }
 
         // Método para leer la lista de personajes ganadores e información relevante desde un archivo JSON
-        public static List<HistorialEntry> LeerGanadores(string nombreArchivo)
+        public static List<Registro> LeerGanadores(string nombreArchivo)
         {
             if (!File.Exists(nombreArchivo))
             {
-                return new List<HistorialEntry>();
+                return new List<Registro>();
             }
 
             string json = File.ReadAllText(nombreArchivo);
-            return JsonConvert.DeserializeObject<List<HistorialEntry>>(json);
+            return JsonConvert.DeserializeObject<List<Registro>>(json);
         }
 
         // Método para verificar si un archivo existe y contiene datos
@@ -52,7 +52,7 @@ namespace HarryPotterApp
     }
 
     // Clase para representar una entrada en el historial
-    public class HistorialEntry
+    public class Registro
     {
         public string Nombre { get; set; }
         public string Informacion { get; set; }
