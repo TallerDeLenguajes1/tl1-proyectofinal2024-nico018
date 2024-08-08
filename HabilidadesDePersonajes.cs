@@ -22,7 +22,7 @@ namespace HarryPotterApp
             };
         }
 
-        public async Task<string> Combatir(Personaje p1, Personaje p2)
+        public string Combatir(Personaje p1, Personaje p2)
         {
             const float constanteAjuste = 500.0f;
 
@@ -30,7 +30,7 @@ namespace HarryPotterApp
 
             while (p1.Salud > 0 && p2.Salud > 0)
             {
-                await Task.Delay(500); // Pausa para simular el tiempo entre turnos
+                Thread.Sleep(1000); // Pausa para simular el tiempo entre turnos
 
                 // Turno de ataque de p1
                 float danioP1 = CalcularDanio(p1, p2, constanteAjuste);
@@ -42,7 +42,7 @@ namespace HarryPotterApp
                     return $"{p1.Nombre} gana el combate!";
                 }
 
-                await Task.Delay(500); // Pausa para simular el tiempo entre turnos
+                Thread.Sleep(1000); // Pausa para simular el tiempo entre turnos
 
                 // Turno de ataque de p2
                 float danioP2 = CalcularDanio(p2, p1, constanteAjuste);

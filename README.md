@@ -2,11 +2,11 @@
 
 ## Descripción del Juego
 
-Harry Potter Battle Arena es un juego de simulación de combate donde los jugadores eligen personajes del universo de Harry Potter para que compitan entre ellos. El juego se desarrolla por turnos, y cada combate continúa hasta que uno de los personajes es derrotado (es decir, su salud llega a 0). El personaje ganador avanza y se enfrenta a otros personajes hasta que solo uno queda en pie. El último personaje en pie es declarado el ganador y merecedor del Trono de Hierro.
+Harry Potter Battle Arena es un juego de simulación de combate donde los jugadores eligen personajes del universo de Harry Potter para que compitan entre ellos. El juego se desarrolla por turnos, y cada combate continúa hasta que uno de los personajes es derrotado (es decir, su salud llega a 0). El personaje ganador avanza y se enfrenta a otros personajes hasta que solo uno queda en pie. El último personaje en pie es declarado el ganador y merecedor del Calix de Fuego.
 
 ## Temática
 
-El juego está ambientado en el mundo mágico de Harry Potter, creado por J.K. Rowling. Los personajes disponibles para elegir son Harry Potter, Hermione Granger, Ron Weasley, y Severus Snape. Cada personaje tiene habilidades únicas y atributos que se utilizan durante los combates.
+El juego está ambientado en el mundo mágico de Harry Potter. Los personajes disponibles para elegir son Harry Potter, Hermione Granger, Ron Weasley, Severus Snape, Albus Dumbledore, Draco Malfoy, Luna Lovegood, Sirius Black. Cada personaje tiene habilidades únicas y atributos que se utilizan durante los combates.
 
 ## Archivos `.cs` y su Funcionalidad
 
@@ -95,12 +95,9 @@ Salud = Salud - Daño Provocado
 El personaje cuya salud llega a 0 es derrotado, y el ganador obtiene una mejora en sus habilidades (+10 en salud o +5 en defensa). Este proceso continúa hasta que solo queda un personaje en pie, que es declarado el ganador final.
 
 ## APIs Utilizadas
+### `HarryPotterAPI.cs`
 
 ### API de Personajes de Harry Potter
 
 - **URL**: `https://hp-api.onrender.com/api/characters`
 - **Uso**: La API se utiliza en el archivo `Program.cs` dentro del método `MostrarDatosAdicionales` para obtener y mostrar datos adicionales del personaje elegido por el usuario. Esta información incluye detalles como la casa, fecha de nacimiento, ascendencia y patronus del personaje.
-
-## Conclusión
-
-Harry Potter Battle Arena combina el emocionante mundo de Harry Potter con un sistema de combate estratégico, permitiendo a los jugadores experimentar enfrentamientos épicos entre sus personajes favoritos. ¡Que gane el mejor mago o bruja!

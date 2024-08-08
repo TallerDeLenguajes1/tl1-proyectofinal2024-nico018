@@ -1,42 +1,82 @@
 [
   {
     "Nombre": "Harry Potter",
-    "Varita": 9,
-    "Magia": 99,
-    "Nivel": 30,
-    "Efectividad": 39,
-    "HechizoDefensa": 64,
-    "Reflejos": 47,
+    "Varita": 3,
+    "Magia": 66,
+    "Nivel": 71,
+    "Efectividad": 92,
+    "HechizoDefensa": 87,
+    "Reflejos": 30,
     "Salud": 100.0
   },
   {
     "Nombre": "Hermione Granger",
-    "Varita": 5,
+    "Varita": 4,
     "Magia": 96,
-    "Nivel": 61,
-    "Efectividad": 100,
-    "HechizoDefensa": 98,
+    "Nivel": 38,
+    "Efectividad": 11,
+    "HechizoDefensa": 74,
     "Reflejos": 30,
     "Salud": 100.0
   },
   {
     "Nombre": "Ron Weasley",
-    "Varita": 5,
-    "Magia": 73,
-    "Nivel": 90,
-    "Efectividad": 72,
-    "HechizoDefensa": 75,
-    "Reflejos": 46,
+    "Varita": 10,
+    "Magia": 70,
+    "Nivel": 13,
+    "Efectividad": 52,
+    "HechizoDefensa": 59,
+    "Reflejos": 36,
     "Salud": 100.0
   },
   {
     "Nombre": "Severus Snape",
     "Varita": 9,
-    "Magia": 87,
-    "Nivel": 11,
-    "Efectividad": 58,
-    "HechizoDefensa": 50,
-    "Reflejos": 34,
+    "Magia": 96,
+    "Nivel": 78,
+    "Efectividad": 56,
+    "HechizoDefensa": 93,
+    "Reflejos": 46,
+    "Salud": 100.0
+  },
+  {
+    "Nombre": "Albus Dumbledore",
+    "Varita": 5,
+    "Magia": 93,
+    "Nivel": 42,
+    "Efectividad": 65,
+    "HechizoDefensa": 79,
+    "Reflejos": 35,
+    "Salud": 100.0
+  },
+  {
+    "Nombre": "Draco Malfoy",
+    "Varita": 9,
+    "Magia": 98,
+    "Nivel": 31,
+    "Efectividad": 38,
+    "HechizoDefensa": 58,
+    "Reflejos": 33,
+    "Salud": 100.0
+  },
+  {
+    "Nombre": "Luna Lovegood",
+    "Varita": 6,
+    "Magia": 97,
+    "Nivel": 31,
+    "Efectividad": 40,
+    "HechizoDefensa": 78,
+    "Reflejos": 31,
+    "Salud": 100.0
+  },
+  {
+    "Nombre": "Sirius Black",
+    "Varita": 2,
+    "Magia": 57,
+    "Nivel": 81,
+    "Efectividad": 51,
+    "HechizoDefensa": 82,
+    "Reflejos": 26,
     "Salud": 100.0
   }
 ]

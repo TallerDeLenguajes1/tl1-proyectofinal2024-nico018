@@ -10,6 +10,7 @@ namespace HarryPotterApp
     {
         static async Task Main(string[] args)
         {
+            
             // Solicitar nombre de usuario
             Console.Write("Por favor, ingrese su nombre de usuario: ");
             string nombreUsuario = Console.ReadLine();
@@ -19,7 +20,7 @@ namespace HarryPotterApp
             List<Personaje> personajes = new List<Personaje>();
 
             // Definir los nombres de los personajes
-            string[] personajesNombres = { "Harry Potter", "Hermione Granger", "Ron Weasley", "Severus Snape" };
+            string[] personajesNombres = { "Harry Potter", "Hermione Granger", "Ron Weasley", "Severus Snape", "Albus Dumbledore", "Draco Malfoy", "Luna Lovegood", "Sirius Black" };
 
             // Crear y guardar las habilidades de los personajes
             foreach (string nombre in personajesNombres)
@@ -45,6 +46,9 @@ namespace HarryPotterApp
             Console.WriteLine($"Has elegido a: {personaje1.Nombre}");
             MostrarHabilidades(personaje1);
 
+            // Obtener y mostrar los datos adicionales del personaje elegido desde la API
+            await MostrarDatosAdicionales(personaje1.Nombre);
+
             // Realizar enfrentamientos sucesivos
             while (personajes.Count > 0)
             {
@@ -52,24 +56,31 @@ namespace HarryPotterApp
                 personajes.RemoveAt(0);
                 Console.WriteLine($"\n{personaje1.Nombre} se enfrentará a {contrincante.Nombre}");
                 MostrarHabilidades(contrincante);
+                Thread.Sleep(1000);
 
                 // Realizar el combate
-                string resultado = await habilidadesDePersonajes.Combatir(personaje1, contrincante);
+                string resultado = habilidadesDePersonajes.Combatir(personaje1, contrincante);
                 Console.WriteLine(resultado);
+                Thread.Sleep(1000);
+
 
                 // Determinar el ganador
                 personaje1 = personaje1.Salud > 0 ? personaje1 : contrincante;
                 Console.WriteLine("\nHabilidades del personaje ganador después del combate:");
+                Thread.Sleep(1000);
                 MostrarHabilidades(personaje1);
             }
 
             // Declarar el ganador final
             Console.WriteLine("\n¡El ganador final y merecedor del Calix de Fuego es:");
+            Thread.Sleep(1000);
             MostrarHabilidades(personaje1);
+            Thread.Sleep(1000);
             Console.WriteLine($"{personaje1.Nombre}, ¡felicitaciones!");
 
             // Guardar el ganador en el historial
             string nombreArchivoHistorial = "historial_ganadores.json";
+            Thread.Sleep(1000);
             string informacion = $"{nombreUsuario} eligió a {personaje1.Nombre} y ganó la competencia.";
             RegistroJson.GuardarGanador(personaje1, informacion, nombreArchivoHistorial);
 
@@ -95,6 +106,24 @@ namespace HarryPotterApp
             Console.WriteLine("Hechizo de defensa: " + personaje.HechizoDefensa);
             Console.WriteLine("Reflejos: " + personaje.Reflejos);
             Console.WriteLine("Salud: " + personaje.Salud);
+        }
+
+        static async Task MostrarDatosAdicionales(string nombre)
+        {
+            var api = new HarryPotterAPI();
+            var datosAdicionales = await api.ObtenerDatosPersonaje(nombre);
+            if (datosAdicionales != null)
+            {
+                Console.WriteLine("\nDatos adicionales del personaje elegido:");
+                Console.WriteLine("Casa: " + datosAdicionales.Casa);
+                Console.WriteLine("Fecha de nacimiento: " + datosAdicionales.FechaDeNacimiento);
+                Console.WriteLine("Ascendencia: " + datosAdicionales.Ascendencia);
+                Console.WriteLine("Patronus: " + datosAdicionales.Patronus);
+            }
+            else
+            {
+                Console.WriteLine("No se encontraron datos adicionales para el personaje seleccionado.");
+            }
         }
     }
 }
