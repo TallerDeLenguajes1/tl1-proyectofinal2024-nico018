@@ -7,7 +7,7 @@ namespace HarryPotterApp
 {
     public static class RegistroJson
     {
-        // Método para guardar el personaje ganador y la información relevante
+        // Método para guardar el personaje ganador y la información importante
         public static void GuardarGanador(Personaje ganador, string informacion, string nombreArchivo)
         {
             List<Registro> historial;
@@ -32,7 +32,7 @@ namespace HarryPotterApp
             File.WriteAllText(nombreArchivo, json);
         }
 
-        // Método para leer la lista de personajes ganadores e información relevante desde un archivo JSON
+        // Método para leer la lista de personajes ganadores e información importante desde un archivo JSON
         public static List<Registro> LeerGanadores(string nombreArchivo)
         {
             if (!File.Exists(nombreArchivo))
@@ -44,14 +44,14 @@ namespace HarryPotterApp
             return JsonConvert.DeserializeObject<List<Registro>>(json);
         }
 
-        // Método para verificar si un archivo existe y contiene datos
+        // Método para verificar si un archivo existe y contiene los datos
         public static bool Existe(string nombreArchivo)
         {
             return File.Exists(nombreArchivo) && new FileInfo(nombreArchivo).Length > 0;
         }
     }
 
-    // Clase para representar una entrada en el historial
+    // Clase para representar una registro en el historial
     public class Registro
     {
         public string Nombre { get; set; }

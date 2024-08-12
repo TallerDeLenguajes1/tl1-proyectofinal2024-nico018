@@ -42,7 +42,7 @@ namespace HarryPotterApp
                     return $"{p1.Nombre} gana el combate!";
                 }
 
-                Thread.Sleep(1000); // Pausa para simular el tiempo entre turnos
+                Thread.Sleep(2000); // Pausa para simular el tiempo entre turnos
 
                 // Turno de ataque de p2
                 float danioP2 = CalcularDanio(p2, p1, constanteAjuste);
@@ -65,7 +65,7 @@ namespace HarryPotterApp
             float defensa = defensor.HechizoDefensa * defensor.Reflejos;
 
             float danioProvocado = ((ataque * efectividad) - defensa) / constanteAjuste;
-            return Math.Max(danioProvocado, 1); // Daño mínimo de 1 para evitar ataques de valor cero
+            return Math.Max(danioProvocado, 1); // Daño minimo de 1 para evitar ataques de valor cero
         }
 
         private void MejorarHabilidades(Personaje ganador)

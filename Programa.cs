@@ -1,16 +1,13 @@
 using System;
 using System.Collections.Generic;
-using System.Net.Http;
 using System.Threading.Tasks;
-using Newtonsoft.Json.Linq;
 
 namespace HarryPotterApp
 {
     class Program
     {
-        static async Task Main(string[] args)
+        static void Main(string[] args)
         {
-            
             // Solicitar nombre de usuario
             Console.Write("Por favor, ingrese su nombre de usuario: ");
             string nombreUsuario = Console.ReadLine();
@@ -19,35 +16,26 @@ namespace HarryPotterApp
             HabilidadesDePersonajes habilidadesDePersonajes = new HabilidadesDePersonajes();
             List<Personaje> personajes = new List<Personaje>();
 
-            // Definir los nombres de los personajes
-            string[] personajesNombres = { "Harry Potter", "Hermione Granger", "Ron Weasley", "Severus Snape", "Albus Dumbledore", "Draco Malfoy", "Luna Lovegood", "Sirius Black" };
-
-            // Crear y guardar las habilidades de los personajes
-            foreach (string nombre in personajesNombres)
+            // Cargar personajes desde JSON
+            try
             {
-                Personaje personaje = habilidadesDePersonajes.CrearPersonaje(nombre);
-                personajes.Add(personaje);
+                personajes = PersonajesJson.CargarPersonajes("personajes.json");
+            }
+            catch (Exception)
+            {
+                Console.WriteLine("No se pudo cargar el archivo JSON. Asegúrate de que el archivo exista.");
+                return;
             }
 
-            // Guardar personajes en un archivo JSON
-            string nombreArchivoPersonajes = "personajes.json";
-            PersonajesJson.GuardarPersonajes(personajes, nombreArchivoPersonajes);
+            // Mostrar el menú de elección de personajes
+            MostrarMenuPersonajes(personajes);
 
-            // Elegir el primer personaje
-            Console.WriteLine("Elija un personaje:");
-            for (int i = 0; i < personajesNombres.Length; i++)
-            {
-                Console.WriteLine($"{i + 1}. {personajesNombres[i]}");
-            }
+            // Validar elección de personaje
+            Personaje personaje1 = ValidarEleccion(personajes);
+            personajes.Remove(personaje1);
 
-            int eleccion1 = Convert.ToInt32(Console.ReadLine());
-            Personaje personaje1 = personajes[eleccion1 - 1];
-            personajes.RemoveAt(eleccion1 - 1);
             Console.WriteLine($"Has elegido a: {personaje1.Nombre}");
             MostrarHabilidades(personaje1);
-
-            // Obtener y mostrar los datos adicionales del personaje elegido desde la API
-            await MostrarDatosAdicionales(personaje1.Nombre);
 
             // Realizar enfrentamientos sucesivos
             while (personajes.Count > 0)
@@ -56,31 +44,24 @@ namespace HarryPotterApp
                 personajes.RemoveAt(0);
                 Console.WriteLine($"\n{personaje1.Nombre} se enfrentará a {contrincante.Nombre}");
                 MostrarHabilidades(contrincante);
-                Thread.Sleep(1000);
 
                 // Realizar el combate
                 string resultado = habilidadesDePersonajes.Combatir(personaje1, contrincante);
                 Console.WriteLine(resultado);
-                Thread.Sleep(1000);
-
 
                 // Determinar el ganador
                 personaje1 = personaje1.Salud > 0 ? personaje1 : contrincante;
                 Console.WriteLine("\nHabilidades del personaje ganador después del combate:");
-                Thread.Sleep(1000);
                 MostrarHabilidades(personaje1);
             }
 
             // Declarar el ganador final
-            Console.WriteLine("\n¡El ganador final y merecedor del Calix de Fuego es:");
-            Thread.Sleep(1000);
+            Console.WriteLine("\n¡El ganador final y merecedor del Caliz de Fuego es:");
             MostrarHabilidades(personaje1);
-            Thread.Sleep(1000);
             Console.WriteLine($"{personaje1.Nombre}, ¡felicitaciones!");
 
             // Guardar el ganador en el historial
             string nombreArchivoHistorial = "historial_ganadores.json";
-            Thread.Sleep(1000);
             string informacion = $"{nombreUsuario} eligió a {personaje1.Nombre} y ganó la competencia.";
             RegistroJson.GuardarGanador(personaje1, informacion, nombreArchivoHistorial);
 
@@ -96,6 +77,32 @@ namespace HarryPotterApp
             }
         }
 
+        static void MostrarMenuPersonajes(List<Personaje> personajes)
+        {
+            Console.WriteLine("****************************");
+            Console.WriteLine("*  MENÚ DE ELECCIÓN DE PERSONAJE  *");
+            Console.WriteLine("****************************");
+            for (int i = 0; i < personajes.Count; i++)
+            {
+                Console.WriteLine($"{i + 1}. {personajes[i].Nombre}");
+            }
+            Console.WriteLine("****************************");
+        }
+
+        static Personaje ValidarEleccion(List<Personaje> personajes)
+        {
+            int eleccion;
+            while (true)
+            {
+                Console.Write("Seleccione un número para elegir su personaje: ");
+                if (int.TryParse(Console.ReadLine(), out eleccion) && eleccion > 0 && eleccion <= personajes.Count)
+                {
+                    return personajes[eleccion - 1];
+                }
+                Console.WriteLine("Entrada inválida. Por favor, ingrese un número válido.");
+            }
+        }
+
         static void MostrarHabilidades(Personaje personaje)
         {
             Console.WriteLine("\nPersonaje: " + personaje.Nombre);
@@ -106,24 +113,6 @@ namespace HarryPotterApp
             Console.WriteLine("Hechizo de defensa: " + personaje.HechizoDefensa);
             Console.WriteLine("Reflejos: " + personaje.Reflejos);
             Console.WriteLine("Salud: " + personaje.Salud);
-        }
-
-        static async Task MostrarDatosAdicionales(string nombre)
-        {
-            var api = new HarryPotterAPI();
-            var datosAdicionales = await api.ObtenerDatosPersonaje(nombre);
-            if (datosAdicionales != null)
-            {
-                Console.WriteLine("\nDatos adicionales del personaje elegido:");
-                Console.WriteLine("Casa: " + datosAdicionales.Casa);
-                Console.WriteLine("Fecha de nacimiento: " + datosAdicionales.FechaDeNacimiento);
-                Console.WriteLine("Ascendencia: " + datosAdicionales.Ascendencia);
-                Console.WriteLine("Patronus: " + datosAdicionales.Patronus);
-            }
-            else
-            {
-                Console.WriteLine("No se encontraron datos adicionales para el personaje seleccionado.");
-            }
         }
     }
 }
