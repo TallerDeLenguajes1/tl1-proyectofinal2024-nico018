@@ -8,7 +8,7 @@ namespace HarryPotterApp
 {
     class Program
     {
-        static void Main(string[] args)
+        static async Task Main(string[] args)
         {
             // Mostrar el arte ASCII inicial
             ArteASCII.MostrarArteInicial();
@@ -38,9 +38,17 @@ namespace HarryPotterApp
             // Validar elección de personaje
             Personaje personaje1 = ValidarEleccion(personajes);
             personajes.Remove(personaje1);
+            
+            // Obtener y mostrar datos adicionales del personaje elegido
+            Personaje personajeConDatosAdicionales = await ApiPersonaje.ObtenerPersonajeAsync(personaje1.Nombre);
+            if (personajeConDatosAdicionales != null)
+            {
+                personaje1 = personajeConDatosAdicionales; // Actualizar el personaje con datos de la API
+            }
 
             Console.WriteLine($"Has elegido a: {personaje1.Nombre}");
             MostrarHabilidades(personaje1);
+            
 
             // Realizar enfrentamientos sucesivos
             while (personajes.Count > 0)
@@ -48,10 +56,16 @@ namespace HarryPotterApp
                 // Mostrar arte ASCII antes del combate
                 ArteASCII.MostrarArteCombate();
 
-                Personaje contrincante = personajes[0];
+                Personaje contrincante = await ApiPersonaje.ObtenerPersonajeAsync(personajes[0].Nombre);
+                if (contrincante == null)
+                {
+                    contrincante = personajes[0]; // Usa datos del JSON si la API falla
+                }
+
                 personajes.RemoveAt(0);
                 Console.WriteLine($"\n{personaje1.Nombre} se enfrentará a {contrincante.Nombre}");
                 MostrarHabilidades(contrincante);
+
 
                 // Realizar el combate
                 string resultado = habilidadesDePersonajes.Combatir(personaje1, contrincante);
@@ -101,9 +115,9 @@ namespace HarryPotterApp
             {
                 Console.WriteLine($"{i + 1}. {personajes[i].Nombre}");
             }
-            Console.WriteLine("****************************");
+            Console.WriteLine(" ***********************************");
             Console.WriteLine("\n");
-            Console.WriteLine("\n");
+            
         }
 
         static Personaje ValidarEleccion(List<Personaje> personajes)
@@ -131,7 +145,17 @@ namespace HarryPotterApp
             Console.WriteLine("Hechizo de defensa: " + personaje.HechizoDefensa);
             Console.WriteLine("Reflejos: " + personaje.Reflejos);
             Console.WriteLine("Salud: " + personaje.Salud);
+            Console.WriteLine("\n");
+
+            // Mostrar datos adicionales
+            Console.WriteLine("Casa: " + personaje.Casa);
+            Console.WriteLine("Ascendencia: " + personaje.Ascendencia);
+            Console.WriteLine("Fecha de Nacimiento: " + personaje.FechaNacimiento);
+            Console.WriteLine("Patronus: " + personaje.Patronus);
             Console.WriteLine("--------------------------------");
+
+
+
         }
     }
 }

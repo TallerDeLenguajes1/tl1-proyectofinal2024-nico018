@@ -35,6 +35,7 @@ namespace HarryPotterApp
                 // Turno de ataque de p1
                 float danioP1 = CalcularDanio(p1, p2, constanteAjuste);
                 p2.Salud -= danioP1;
+                Console.WriteLine("--------------------------------");
                 Console.WriteLine($"{p1.Nombre} ataca a {p2.Nombre} y provoca {danioP1:F2} de daño. Salud de {p2.Nombre}: {p2.Salud:F2}");
                 if (p2.Salud <= 0)
                 {

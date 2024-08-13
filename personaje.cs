@@ -2,6 +2,11 @@ namespace HarryPotterApp
 {
     public class Personaje
     {
+        internal string Casa;
+        internal string Ascendencia;
+        internal string FechaNacimiento;
+        internal string Patronus;
+
         public string Nombre { get; set; }
         public int Varita { get; set; }
         public int Magia { get; set; }
