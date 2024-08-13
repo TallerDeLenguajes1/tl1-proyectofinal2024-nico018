@@ -53,8 +53,7 @@ namespace HarryPotterApp
             // Realizar enfrentamientos sucesivos
             while (personajes.Count > 0)
             {
-                // Mostrar arte ASCII antes del combate
-                ArteASCII.MostrarArteCombate();
+                
 
                 Personaje contrincante = await ApiPersonaje.ObtenerPersonajeAsync(personajes[0].Nombre);
                 if (contrincante == null)
@@ -66,15 +65,22 @@ namespace HarryPotterApp
                 Console.WriteLine($"\n{personaje1.Nombre} se enfrentará a {contrincante.Nombre}");
                 MostrarHabilidades(contrincante);
 
+                // Mostrar arte ASCII antes del combate
+                ArteASCII.MostrarArteCombate();
 
                 // Realizar el combate
-                string resultado = habilidadesDePersonajes.Combatir(personaje1, contrincante);
+                string resultado = Combatir.RealizarCombate(personaje1, contrincante);
                 Console.WriteLine(resultado);
+
+                
 
                 // Determinar el ganador
                 personaje1 = personaje1.Salud > 0 ? personaje1 : contrincante;
                 Console.WriteLine("\nHabilidades del personaje ganador después del combate:");
+                MejorarHabilidades.Mejorar(personaje1);
                 MostrarHabilidades(personaje1);
+
+                
             }
 
             
@@ -157,5 +163,9 @@ namespace HarryPotterApp
 
 
         }
+    }
+
+    internal class HabilidadesDePersonajes
+    {
     }
 }
