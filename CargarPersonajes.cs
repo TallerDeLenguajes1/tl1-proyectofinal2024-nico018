@@ -5,9 +5,9 @@ using Newtonsoft.Json;
 
 namespace HarryPotterApp
 {
-    public static class PersonajesJson
+    public static class CargarPersonajes
     {
-        public static List<Personaje> CargarPersonajes(string nombreArchivo)
+        public static List<Personaje> Ejecutar(string nombreArchivo)
         {
             if (!File.Exists(nombreArchivo))
             {
@@ -16,12 +16,6 @@ namespace HarryPotterApp
 
             string jsonData = File.ReadAllText(nombreArchivo);
             return JsonConvert.DeserializeObject<List<Personaje>>(jsonData);
-        }
-
-        public static void GuardarPersonajes(List<Personaje> personajes, string nombreArchivo)
-        {
-            string jsonData = JsonConvert.SerializeObject(personajes, Formatting.Indented);
-            File.WriteAllText(nombreArchivo, jsonData);
         }
     }
 }
