@@ -9,7 +9,7 @@ namespace HarryPotterApp
     {
         private static readonly string urlApi = "https://hp-api.onrender.com/api/characters"; // URL de la API
 
-        public static async Task<Personaje> ObtenerPersonajeAsync(string nombre)
+        public static async Task<Personaje> ObtenerPersonaje(string nombre)
         {
             using (HttpClient client = new HttpClient())
             {
@@ -30,15 +30,13 @@ namespace HarryPotterApp
                         {
                             // Crear y devolver el personaje con la información obtenida
                             return new Personaje
-                            {
+                            {   // Valores predeterminados si no se encuentran
                                 Nombre = item["name"].ToString(),
-                                //Varita = item["wand"]["core"]?.ToString() ?? "Desconocida",
-                                Magia = 50, // Valor predeterminado si no se encuentra
-                                Nivel = 1,  // Valor predeterminado si no se encuentra
-                                Efectividad = 70, // Valor predeterminado si no se encuentra
-                                //HechizoDefensa = "Desconocido", // Valor predeterminado si no se encuentra
-                                Reflejos = 60, // Valor predeterminado si no se encuentra
-                                Salud = 100, // Valor predeterminado si no se encuentra
+                                Magia = 50, 
+                                Nivel = 1,  
+                                Efectividad = 70, 
+                                Reflejos = 60, 
+                                Salud = 100, 
                                 Casa = item["house"]?.ToString() ?? "Desconocida",
                                 Ascendencia = item["ancestry"]?.ToString() ?? "Desconocida",
                                 FechaNacimiento = item["dateOfBirth"]?.ToString() ?? "Desconocida",

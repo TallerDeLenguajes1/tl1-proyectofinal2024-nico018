@@ -5,13 +5,14 @@ namespace HarryPotterApp
         public static string RealizarCombate(Personaje personaje1, Personaje contrincante)
         {
             // Calcular daño basado en la magia, efectividad y reflejos
-            int danioPersonaje1 = CalcularDanio.Calcular(personaje1, contrincante);
-            int danioContrincante = CalcularDanio.Calcular(contrincante, personaje1);
+            int AtaquePersonaje1 = CalcularAtaque.Ataque(personaje1, contrincante);
+            // Calcular defensa basado efectividad y reflejos
+            int DefensaContrincante = CalcularAtaque.Defensa(contrincante, personaje1);
 
             // Turno del personaje 1 atacando
             Console.WriteLine($"{personaje1.Nombre} ataca a {contrincante.Nombre}!");
-            Console.WriteLine($"{contrincante.Nombre} recibe {danioPersonaje1} puntos de daño.");
-            contrincante.Salud -= danioPersonaje1;
+            Console.WriteLine($"{contrincante.Nombre} recibe {AtaquePersonaje1} puntos de daño.");
+            contrincante.Salud -= AtaquePersonaje1;
             Console.WriteLine($"{contrincante.Nombre} tiene ahora {contrincante.Salud} puntos de salud.\n");
 
             // Verificar si el contrincante ha sido derrotado
@@ -22,9 +23,10 @@ namespace HarryPotterApp
 
             // Turno del contrincante atacando
             Console.WriteLine($"{contrincante.Nombre} contraataca a {personaje1.Nombre}!");
-            Console.WriteLine($"{personaje1.Nombre} recibe {danioContrincante} puntos de daño.");
-            personaje1.Salud -= danioContrincante;
+            Console.WriteLine($"{personaje1.Nombre} recibe {DefensaContrincante} puntos de daño.");
+            personaje1.Salud -= DefensaContrincante;
             Console.WriteLine($"{personaje1.Nombre} tiene ahora {personaje1.Salud} puntos de salud.\n");
+
 
             // Verificar si el personaje1 ha sido derrotado
             if (personaje1.Salud <= 0)
