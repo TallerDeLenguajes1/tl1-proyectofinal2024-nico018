@@ -7,7 +7,7 @@ namespace HarryPotterApp
 {
     public static class CargarPersonajes
     {
-        public static List<Personaje> Ejecutar(string nombreArchivo)
+        public static List<Personaje> Guardar(string nombreArchivo)
         {
             if (!File.Exists(nombreArchivo))
             {

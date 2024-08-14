@@ -8,7 +8,7 @@ namespace HarryPotterApp
     public static class LeerGanadores
     {
         // Método para leer la lista de personajes ganadores e información importante desde un archivo JSON
-        public static List<Registro> Ejecutar(string nombreArchivo)
+        public static List<Registro> Guardar(string nombreArchivo)
         {
             if (!File.Exists(nombreArchivo))
             {

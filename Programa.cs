@@ -24,7 +24,7 @@ namespace HarryPotterApp
             // Cargar personajes desde JSON
             try
             {
-                personajes = CargarPersonajes.Ejecutar("personajes.json");
+                personajes = CargarPersonajes.Guardar("personajes.json");
             }
             catch (Exception)
             {
@@ -33,10 +33,10 @@ namespace HarryPotterApp
             }
 
             // Mostrar el menú de elección de personajes
-            MostrarMenuPersonajes(personajes);
+            MenuPersonajes.MostrarMenuPersonajes(personajes);
 
             // Validar elección de personaje
-            Personaje personaje1 = ValidarEleccion(personajes);
+            Personaje personaje1 = ValidarEleccion.Validar(personajes);
             personajes.Remove(personaje1);
             
             // Obtener y mostrar datos adicionales del personaje elegido
@@ -47,14 +47,13 @@ namespace HarryPotterApp
             }
 
             Console.WriteLine($"Has elegido a: {personaje1.Nombre}");
-            MostrarHabilidades(personaje1);
+            MostrarHabilidades.Mostrar(personaje1);
             
 
             // Realizar enfrentamientos sucesivos
             while (personajes.Count > 0)
             {
                 
-
                 Personaje contrincante = await ApiPersonaje.ObtenerPersonajeAsync(personajes[0].Nombre);
                 if (contrincante == null)
                 {
@@ -63,7 +62,7 @@ namespace HarryPotterApp
 
                 personajes.RemoveAt(0);
                 Console.WriteLine($"\n{personaje1.Nombre} se enfrentará a {contrincante.Nombre}");
-                MostrarHabilidades(contrincante);
+                MostrarHabilidades.Mostrar(contrincante);
 
                 // Mostrar arte ASCII antes del combate
                 ArteASCII.MostrarArteCombate();
@@ -72,36 +71,31 @@ namespace HarryPotterApp
                 string resultado = Combatir.RealizarCombate(personaje1, contrincante);
                 Console.WriteLine(resultado);
 
-                
-
                 // Determinar el ganador
                 personaje1 = personaje1.Salud > 0 ? personaje1 : contrincante;
                 Console.WriteLine("\nHabilidades del personaje ganador después del combate:");
                 MejorarHabilidades.Mejorar(personaje1);
-                MostrarHabilidades(personaje1);
+                MostrarHabilidades.Mostrar(personaje1);
 
                 
             }
-
-            
-             
 
             // Declarar el ganador final
             Console.WriteLine("\n¡El ganador final y merecedor del Caliz de Fuego es:");
             // Mostrar arte ASCII final
             ArteASCII.MostrarArteFinal();
-            MostrarHabilidades(personaje1);
+            MostrarHabilidades.Mostrar(personaje1);
             Console.WriteLine($"{personaje1.Nombre}, ¡felicitaciones!");
 
             // Guardar el ganador en el historial
             string nombreArchivoHistorial = "historial_ganadores.json";
             string informacion = $"{nombreUsuario} eligió a {personaje1.Nombre} y ganó la competencia.";
-            GuardarGanador.Ejecutar(personaje1, informacion, nombreArchivoHistorial);
+            GuardarGanador.Guardar(personaje1, informacion, nombreArchivoHistorial);
 
             // Leer y mostrar el historial de ganadores
             if (LeerGanadores.Existe(nombreArchivoHistorial))
             {
-                List<Registro> ganadores = LeerGanadores.Ejecutar(nombreArchivoHistorial);
+                List<Registro> ganadores = LeerGanadores.Guardar(nombreArchivoHistorial);
                 Console.WriteLine("\nHistorial de Ganadores:");
                 foreach (var entry in ganadores)
                 {
@@ -111,7 +105,7 @@ namespace HarryPotterApp
         }
 
 
-        static void MostrarMenuPersonajes(List<Personaje> personajes)
+        /*static void MostrarMenuPersonajes(List<Personaje> personajes)
         {
             Console.WriteLine("\n");
             Console.WriteLine(" *********************************");
@@ -124,9 +118,9 @@ namespace HarryPotterApp
             Console.WriteLine(" ***********************************");
             Console.WriteLine("\n");
             
-        }
+        }*/
 
-        static Personaje ValidarEleccion(List<Personaje> personajes)
+        /*static Personaje ValidarEleccion(List<Personaje> personajes)
         {
             int eleccion;
             while (true)
@@ -138,9 +132,9 @@ namespace HarryPotterApp
                 }
                 Console.WriteLine("Entrada inválida. Por favor, ingrese un número válido.");
             }
-        }
+        }*/
 
-        static void MostrarHabilidades(Personaje personaje)
+        /*static void MostrarHabilidades(Personaje personaje)
         {
             Console.WriteLine("--------------------------------");
             Console.WriteLine("Personaje: " + personaje.Nombre);
@@ -162,7 +156,7 @@ namespace HarryPotterApp
 
 
 
-        }
+        }*/
     }
 
     internal class HabilidadesDePersonajes

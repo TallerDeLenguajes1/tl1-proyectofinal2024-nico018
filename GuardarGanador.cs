@@ -8,12 +8,12 @@ namespace HarryPotterApp
     public static class GuardarGanador
     {
         // Método para guardar el personaje ganador y la información importante
-        public static void Ejecutar(Personaje ganador, string informacion, string nombreArchivo)
+        public static void Guardar(Personaje ganador, string informacion, string nombreArchivo)
         {
             List<Registro> historial;
             if (File.Exists(nombreArchivo))
             {
-                historial = LeerGanadores.Ejecutar(nombreArchivo);
+                historial = LeerGanadores.Guardar(nombreArchivo);
             }
             else
             {
